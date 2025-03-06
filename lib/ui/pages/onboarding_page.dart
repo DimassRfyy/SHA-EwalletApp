@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sha/shared/theme.dart';
+import 'package:flutter_sha/ui/pages/sign_in_page.dart';
 
 class OnboardingPage extends StatefulWidget {
   const OnboardingPage({super.key});
@@ -110,7 +111,14 @@ class _OnboardingPageState extends State<OnboardingPage> {
                               style: TextButton.styleFrom(
                                 padding: EdgeInsets.zero,
                               ),
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const SignInPage(),
+                                  ),
+                                );
+                              },
                               child: Text(
                                 'Sign In',
                                 style: grayTextStyle.copyWith(
