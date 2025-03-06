@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_sha/shared/theme.dart';
 import 'package:flutter_sha/ui/widgets/buttons.dart';
+import 'package:flutter_sha/ui/widgets/forms.dart';
 
 class SignInPage extends StatelessWidget {
   const SignInPage({super.key});
@@ -37,64 +38,23 @@ class SignInPage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 // Email Input
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Email Address',
-                      style: blackTextStyle.copyWith(
-                        fontSize: 14,
-                        fontWeight: medium,
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-                    TextFormField(
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(14),
-                        ),
-                        contentPadding: const EdgeInsets.all(12),
-                      ),
-                    ),
-                  ],
-                ),
+                const CustomFormField(label: 'Email Address'),
                 const SizedBox(height: 16),
                 // Password Input
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Password',
-                      style: blackTextStyle.copyWith(
-                        fontSize: 14,
-                        fontWeight: medium,
-                      ),
+                const CustomFormField(label: 'Password', obscureText: true),
+                const SizedBox(height: 8),
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: Text(
+                    'Forgot Password?',
+                    style: blueTextStyle.copyWith(
+                      fontSize: 14,
+                      fontWeight: regular,
                     ),
-                    const SizedBox(height: 8),
-                    TextFormField(
-                      obscureText: true,
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(14),
-                        ),
-                        contentPadding: const EdgeInsets.all(12),
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-                    Align(
-                      alignment: Alignment.centerRight,
-                      child: Text(
-                        'Forgot Password?',
-                        style: blueTextStyle.copyWith(
-                          fontSize: 14,
-                          fontWeight: regular,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 30),
-                    CustomFilledButton(title: 'Sign In', onPressed: () {}),
-                  ],
+                  ),
                 ),
+                const SizedBox(height: 30),
+                CustomFilledButton(title: 'Sign In', onPressed: () {}),
               ],
             ),
           ),
