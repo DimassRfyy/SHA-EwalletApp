@@ -1,7 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sha/shared/theme.dart';
-import 'package:flutter_sha/ui/pages/sign_in_page.dart';
 import 'package:flutter_sha/ui/widgets/buttons.dart';
 
 class OnboardingPage extends StatefulWidget {
@@ -90,12 +89,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                           CustomTexButton(
                             title: 'Sign In',
                             onPressed: () {
-                              Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => SignInPage(),
-                                ),
-                              );
+                              Navigator.pushNamed(context, '/sign-in');
                             },
                           ),
                         ],
