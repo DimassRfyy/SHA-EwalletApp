@@ -83,7 +83,9 @@ class _OnboardingPageState extends State<OnboardingPage> {
                         children: [
                           CustomFilledButton(
                             title: 'Get Started',
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.pushNamed(context, '/sign-up');
+                            },
                           ),
                           const SizedBox(height: 20),
                           CustomTexButton(
