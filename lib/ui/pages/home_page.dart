@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_sha/shared/theme.dart';
+import 'package:flutter_sha/ui/widgets/home_service_item.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -64,7 +65,12 @@ class HomePage extends StatelessWidget {
 
       body: ListView(
         padding: const EdgeInsets.symmetric(horizontal: 24),
-        children: [buildProfile(), buildWalletCard(), buildLevel()],
+        children: [
+          buildProfile(),
+          buildWalletCard(),
+          buildLevel(),
+          buildService(),
+        ],
       ),
     );
   }
@@ -203,6 +209,47 @@ class HomePage extends StatelessWidget {
               backgroundColor: lightBackgroundColor,
               valueColor: AlwaysStoppedAnimation(greenColor),
             ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget buildService() {
+    return Container(
+      margin: const EdgeInsets.only(top: 30),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Do Something',
+            style: blackTextStyle.copyWith(fontSize: 16, fontWeight: semiBold),
+          ),
+          const SizedBox(height: 14),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              HomeServiceItem(
+                imageUrl: 'assets/ic_topup.png',
+                title: 'Top Up',
+                onTap: () {},
+              ),
+              HomeServiceItem(
+                imageUrl: 'assets/ic_send.png',
+                title: 'Send',
+                onTap: () {},
+              ),
+              HomeServiceItem(
+                imageUrl: 'assets/ic_withdraw.png',
+                title: 'Withdraw',
+                onTap: () {},
+              ),
+              HomeServiceItem(
+                imageUrl: 'assets/ic_more.png',
+                title: 'More',
+                onTap: () {},
+              ),
+            ],
           ),
         ],
       ),
