@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_sha/shared/theme.dart';
+import 'package:flutter_sha/ui/widgets/home_latest_transaction_item.dart';
 import 'package:flutter_sha/ui/widgets/home_service_item.dart';
 
 class HomePage extends StatelessWidget {
@@ -69,7 +70,8 @@ class HomePage extends StatelessWidget {
           buildProfile(),
           buildWalletCard(),
           buildLevel(),
-          buildService(),
+          buildServices(),
+          buildLatestTransactions(),
         ],
       ),
     );
@@ -215,7 +217,7 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  Widget buildService() {
+  Widget buildServices() {
     return Container(
       margin: const EdgeInsets.only(top: 30),
       child: Column(
@@ -250,6 +252,63 @@ class HomePage extends StatelessWidget {
                 onTap: () {},
               ),
             ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget buildLatestTransactions() {
+    return Container(
+      margin: const EdgeInsets.only(top: 30),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Latest Transactions',
+            style: blackTextStyle.copyWith(fontSize: 16, fontWeight: semiBold),
+          ),
+          Container(
+            margin: const EdgeInsets.only(top: 14),
+            padding: const EdgeInsets.all(22),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              color: whiteColor,
+            ),
+            child: Column(
+              children: [
+                HomeLatestTransactionItem(
+                  imageUrl: 'assets/ic_trx_topup.png',
+                  title: 'Top Up',
+                  date: 'Yesterday',
+                  amount: '+\$ 100,000',
+                ),
+                HomeLatestTransactionItem(
+                  imageUrl: 'assets/ic_trx_cashback.png',
+                  title: 'Cashback',
+                  date: 'Sep 11',
+                  amount: '+\$ 75,000',
+                ),
+                HomeLatestTransactionItem(
+                  imageUrl: 'assets/ic_trx_withdraw.png',
+                  title: 'Withdraw',
+                  date: 'Sep 10',
+                  amount: '+\$ 200,000',
+                ),
+                HomeLatestTransactionItem(
+                  imageUrl: 'assets/ic_trx_transfer.png',
+                  title: 'Transfer',
+                  date: 'Sep 10',
+                  amount: '+\$ 50,000',
+                ),
+                HomeLatestTransactionItem(
+                  imageUrl: 'assets/ic_trx_electric.png',
+                  title: 'Electricity',
+                  date: 'Sep 9',
+                  amount: '+\$ 20,000',
+                ),
+              ],
+            ),
           ),
         ],
       ),
