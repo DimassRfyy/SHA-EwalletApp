@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_sha/shared/theme.dart';
 import 'package:flutter_sha/ui/widgets/home_latest_transaction_item.dart';
 import 'package:flutter_sha/ui/widgets/home_service_item.dart';
+import 'package:flutter_sha/ui/widgets/home_tips_item.dart';
 import 'package:flutter_sha/ui/widgets/home_user_item.dart';
 
 class HomePage extends StatelessWidget {
@@ -74,6 +75,7 @@ class HomePage extends StatelessWidget {
           buildServices(),
           buildLatestTransactions(),
           buildSendAgain(),
+          buildFriendlyTips(),
         ],
       ),
     );
@@ -350,6 +352,63 @@ class HomePage extends StatelessWidget {
                 ),
               ],
             ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget buildFriendlyTips() {
+    return Container(
+      margin: const EdgeInsets.only(top: 30, bottom: 50),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Friendly Tips',
+            style: blackTextStyle.copyWith(fontSize: 16, fontWeight: semiBold),
+          ),
+          const SizedBox(height: 14),
+          GridView.builder(
+            shrinkWrap: true,
+            physics: NeverScrollableScrollPhysics(),
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              crossAxisSpacing: 17,
+              mainAxisSpacing: 18,
+              childAspectRatio: 0.9,
+            ),
+            itemCount: 4,
+            itemBuilder: (context, index) {
+              final tips = [
+                {
+                  'title': 'Best tips for using credit card',
+                  'imageUrl': 'assets/img_tips1.png',
+                  'url': 'https://www.google.com',
+                },
+                {
+                  'title': 'Spot the good pie of finance model',
+                  'imageUrl': 'assets/img_tips2.png',
+                  'url': 'https://www.google.com',
+                },
+                {
+                  'title': 'How to make a good financial',
+                  'imageUrl': 'assets/img_tips3.png',
+                  'url': 'https://www.google.com',
+                },
+                {
+                  'title': 'Save more penny by doing this',
+                  'imageUrl': 'assets/img_tips4.png',
+                  'url': 'https://www.google.com',
+                },
+              ];
+
+              return HomeTipsItem(
+                title: tips[index]['title']!,
+                imageUrl: tips[index]['imageUrl']!,
+                url: tips[index]['url']!,
+              );
+            },
           ),
         ],
       ),
