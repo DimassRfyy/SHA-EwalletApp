@@ -389,12 +389,12 @@ class HomePage extends StatelessWidget {
                 {
                   'title': 'Spot the good pie of finance model',
                   'imageUrl': 'assets/img_tips2.png',
-                  'url': 'https://www.google.com',
+                  'url': 'https://pub.dev',
                 },
                 {
                   'title': 'How to make a good financial',
                   'imageUrl': 'assets/img_tips3.png',
-                  'url': 'https://www.google.com',
+                  'url': 'https://dadada',
                 },
                 {
                   'title': 'Save more penny by doing this',
