@@ -18,6 +18,10 @@ class _PinPageState extends State<PinPage> {
         _pinController.text += value;
       });
     }
+
+    if (_pinController.text == '111111') {
+      Navigator.pop(context, true);
+    }
   }
 
   @override
