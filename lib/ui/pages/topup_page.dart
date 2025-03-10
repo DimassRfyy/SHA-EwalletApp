@@ -79,7 +79,12 @@ class TopupPage extends StatelessWidget {
                 minutes: '50 mins',
               ),
               const SizedBox(height: 20),
-              CustomFilledButton(title: 'Continue', onPressed: () {}),
+              CustomFilledButton(
+                title: 'Continue',
+                onPressed: () {
+                  Navigator.pushNamed(context, '/topup-amount');
+                },
+              ),
               const SizedBox(height: 55),
             ],
           ),
