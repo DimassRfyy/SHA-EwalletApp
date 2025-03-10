@@ -95,7 +95,7 @@ class _TopupAmountPageState extends State<TopupAmountPage> {
 
                     if (_amountController.text.isEmpty) {
                       _amountController.text = '0';
-                    } 
+                    }
                   });
                 },
                 child: Container(
@@ -113,7 +113,19 @@ class _TopupAmountPageState extends State<TopupAmountPage> {
             ],
           ),
           const SizedBox(height: 50),
-          CustomFilledButton(title: 'Checkout Now', onPressed: () {}),
+          CustomFilledButton(
+            title: 'Checkout Now',
+            onPressed: () async {
+              final result = await Navigator.pushNamed(context, '/pin');
+              if (result == true && context.mounted) {
+                Navigator.pushNamedAndRemoveUntil(
+                  context,
+                  '/topup-success',
+                  (route) => false,
+                );
+              }
+            },
+          ),
           const SizedBox(height: 25),
           CustomTexButton(title: 'Terms & Conditions', onPressed: () {}),
           const SizedBox(height: 55),

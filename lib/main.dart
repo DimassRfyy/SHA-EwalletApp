@@ -15,6 +15,7 @@ import 'package:flutter_sha/ui/pages/splash_page.dart';
 import 'package:flutter_sha/ui/pages/onboarding_page.dart';
 import 'package:flutter_sha/ui/pages/topup_amount_page.dart';
 import 'package:flutter_sha/ui/pages/topup_page.dart';
+import 'package:flutter_sha/ui/pages/topup_success_page.dart';
 
 void main() => runApp(const MyApp());
 
@@ -53,6 +54,7 @@ class MyApp extends StatelessWidget {
         '/profile-edit-success': (context) => const ProfileEditSuccessPage(),
         '/topup': (context) => const TopupPage(),
         '/topup-amount': (context) => const TopupAmountPage(),
+        '/topup-success': (context) => const TopupSuccessPage(),
       },
     );
   }
