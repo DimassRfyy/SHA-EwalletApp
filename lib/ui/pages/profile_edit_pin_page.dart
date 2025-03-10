@@ -3,13 +3,13 @@ import 'package:flutter_sha/shared/theme.dart';
 import 'package:flutter_sha/ui/widgets/buttons.dart';
 import 'package:flutter_sha/ui/widgets/forms.dart';
 
-class ProfileEditPage extends StatelessWidget {
-  const ProfileEditPage({super.key});
+class ProfileEditPinPage extends StatelessWidget {
+  const ProfileEditPinPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Edit Profile')),
+      appBar: AppBar(title: Text('Edit PIN')),
       body: ListView(
         padding: const EdgeInsets.symmetric(horizontal: 24),
         children: [
@@ -23,16 +23,12 @@ class ProfileEditPage extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const CustomFormField(label: 'Username'),
+                const CustomFormField(label: 'Old PIN'),
                 const SizedBox(height: 16),
-                const CustomFormField(label: 'Full Name'),
-                const SizedBox(height: 16),
-                const CustomFormField(label: 'Email Address'),
-                const SizedBox(height: 16),
-                const CustomFormField(label: 'Password', obscureText: true),
+                const CustomFormField(label: 'New PIN'),
                 const SizedBox(height: 30),
                 CustomFilledButton(
-                  title: 'Update Profile',
+                  title: 'Update PIN',
                   onPressed: () {
                     Navigator.pushNamedAndRemoveUntil(
                       context,
