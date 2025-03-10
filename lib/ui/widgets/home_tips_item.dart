@@ -17,12 +17,15 @@ class HomeTipsItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () async {
-        if (await canLaunch(url)) {
-          launch(url);
+        final urlUri = Uri.parse(url);
+        if (await canLaunchUrl(urlUri)) {
+          await launchUrl(urlUri);
         } else {
-          ScaffoldMessenger.of(
-            context,
-          ).showSnackBar(SnackBar(content: Text('URL is not available')));
+          if (context.mounted) {
+            ScaffoldMessenger.of(
+              context,
+            ).showSnackBar(SnackBar(content: Text('URL is not available')));
+          }
         }
       },
       child: Container(

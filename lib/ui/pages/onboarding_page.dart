@@ -114,7 +114,9 @@ class _OnboardingPageState extends State<OnboardingPage> {
                               color:
                                   currentIndex == 0
                                       ? blueColor
-                                      : grayColor.withOpacity(0.5),
+                                      : grayColor.withAlpha(
+                                        (0.5 * 255).toInt(),
+                                      ),
                             ),
                           ),
                           Container(
@@ -126,7 +128,9 @@ class _OnboardingPageState extends State<OnboardingPage> {
                               color:
                                   currentIndex == 1
                                       ? blueColor
-                                      : grayColor.withOpacity(0.5),
+                                      : grayColor.withAlpha(
+                                        (0.5 * 255).toInt(),
+                                      ),
                             ),
                           ),
                           Container(
@@ -138,7 +142,9 @@ class _OnboardingPageState extends State<OnboardingPage> {
                               color:
                                   currentIndex == 2
                                       ? blueColor
-                                      : grayColor.withOpacity(0.5),
+                                      : grayColor.withAlpha(
+                                        (0.5 * 255).toInt(),
+                                      ),
                             ),
                           ),
                           const Spacer(),

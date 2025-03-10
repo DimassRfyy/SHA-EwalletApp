@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_sha/shared/theme.dart';
 import 'package:flutter_sha/ui/widgets/buttons.dart';
+import 'package:intl/intl.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class TopupAmountPage extends StatefulWidget {
   const TopupAmountPage({super.key});
@@ -13,6 +15,19 @@ class _TopupAmountPageState extends State<TopupAmountPage> {
   final TextEditingController _amountController = TextEditingController(
     text: '0',
   );
+
+  @override
+  void initState() {
+    super.initState();
+    _amountController.addListener(() {
+      final text = _amountController.text.replaceAll(',', '');
+      if (text.isNotEmpty && int.tryParse(text) != null) {
+        _amountController.value = _amountController.value.copyWith(
+          text: NumberFormat('#,###').format(int.parse(text)),
+        );
+      }
+    });
+  }
 
   void _onButtonPressed(String value) {
     if (_amountController.text == '0') {
@@ -117,12 +132,20 @@ class _TopupAmountPageState extends State<TopupAmountPage> {
             title: 'Checkout Now',
             onPressed: () async {
               final result = await Navigator.pushNamed(context, '/pin');
-              if (result == true && context.mounted) {
-                Navigator.pushNamedAndRemoveUntil(
-                  context,
-                  '/topup-success',
-                  (route) => false,
-                );
+              if (result == true) {
+                final url = Uri.parse('https://demo.midtrans.com');
+                if (await canLaunchUrl(url)) {
+                  await launchUrl(url);
+                } else {
+                  throw 'Could not launch $url';
+                }
+                if (context.mounted) {
+                  Navigator.pushNamedAndRemoveUntil(
+                    context,
+                    '/topup-success',
+                    (route) => false,
+                  );
+                }
               }
             },
           ),
