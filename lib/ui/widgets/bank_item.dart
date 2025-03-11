@@ -4,14 +4,14 @@ import 'package:flutter_sha/shared/theme.dart';
 class BankItem extends StatelessWidget {
   final String imageUrl;
   final String name;
-  final String minutes;
+  final String description;
   final bool isSelected;
 
   const BankItem({
     super.key,
     required this.imageUrl,
     required this.name,
-    required this.minutes,
+    required this.description,
     this.isSelected = false,
   });
 
@@ -43,7 +43,7 @@ class BankItem extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 2),
-              Text(minutes, style: grayTextStyle.copyWith(fontSize: 12)),
+              Text(description, style: grayTextStyle.copyWith(fontSize: 12)),
             ],
           ),
         ],

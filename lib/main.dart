@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_sha/shared/theme.dart';
+import 'package:flutter_sha/ui/pages/data_provider_page.dart';
 import 'package:flutter_sha/ui/pages/home_page.dart';
 import 'package:flutter_sha/ui/pages/pin_page.dart';
 import 'package:flutter_sha/ui/pages/profile_edit_page.dart';
@@ -61,6 +62,7 @@ class MyApp extends StatelessWidget {
         '/transfer': (context) => const TransferPage(),
         '/transfer-amount': (context) => const TransferAmountPage(),
         '/transfer-success': (context) => const TransferSuccessPage(),
+        '/data-provider': (context) => const DataProviderPage(),
       },
     );
   }

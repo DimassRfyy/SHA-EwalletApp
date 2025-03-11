@@ -3,13 +3,13 @@ import 'package:flutter_sha/shared/theme.dart';
 import 'package:flutter_sha/ui/widgets/bank_item.dart';
 import 'package:flutter_sha/ui/widgets/buttons.dart';
 
-class TopupPage extends StatelessWidget {
-  const TopupPage({super.key});
+class DataProviderPage extends StatelessWidget {
+  const DataProviderPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Top Up')),
+      appBar: AppBar(title: Text('Buy Data')),
       body: ListView(
         padding: const EdgeInsets.symmetric(horizontal: 24),
         children: [
@@ -18,7 +18,7 @@ class TopupPage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Wallet',
+                'From Wallet',
                 style: blackTextStyle.copyWith(
                   fontSize: 16,
                   fontWeight: semiBold,
@@ -41,7 +41,7 @@ class TopupPage extends StatelessWidget {
                       ),
                       const SizedBox(height: 2),
                       Text(
-                        'Akane Kurokawa',
+                        'Balance: Rp 180.000.000',
                         style: grayTextStyle.copyWith(fontSize: 12),
                       ),
                     ],
@@ -50,7 +50,7 @@ class TopupPage extends StatelessWidget {
               ),
               const SizedBox(height: 40),
               Text(
-                'Select Bank',
+                'Select Provider',
                 style: blackTextStyle.copyWith(
                   fontSize: 16,
                   fontWeight: semiBold,
@@ -58,33 +58,23 @@ class TopupPage extends StatelessWidget {
               ),
               const SizedBox(height: 14),
               BankItem(
-                imageUrl: 'assets/img_bca.png',
-                name: 'BANK BCA',
-                description: '50 mins',
+                imageUrl: 'assets/img_telkomsel.png',
+                name: 'Telkomsel',
+                description: 'Available',
                 isSelected: true,
               ),
               BankItem(
-                imageUrl: 'assets/img_bni.png',
-                name: 'BANK BNI',
-                description: '50 mins',
+                imageUrl: 'assets/img_indosat.png',
+                name: 'Indosat',
+                description: 'Available',
               ),
               BankItem(
-                imageUrl: 'assets/img_mandiri.png',
-                name: 'BANK MANDIRI',
-                description: '50 mins',
-              ),
-              BankItem(
-                imageUrl: 'assets/img_ocbc.png',
-                name: 'BANK OCBC',
-                description: '50 mins',
+                imageUrl: 'assets/img_singtel.png',
+                name: 'Singtel',
+                description: 'Available',
               ),
               const SizedBox(height: 20),
-              CustomFilledButton(
-                title: 'Continue',
-                onPressed: () {
-                  Navigator.pushNamed(context, '/topup-amount');
-                },
-              ),
+              CustomFilledButton(title: 'Continue', onPressed: () {}),
               const SizedBox(height: 55),
             ],
           ),
