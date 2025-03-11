@@ -37,7 +37,15 @@ class DataPackagePage extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 100),
-          CustomFilledButton(title: 'Buy Package', onPressed: () {}),
+          CustomFilledButton(
+            title: 'Buy Package',
+            onPressed: () async {
+              final result = await Navigator.pushNamed(context, '/pin');
+              if (result == true && context.mounted) {
+                Navigator.pushNamed(context, '/data-success');
+              }
+            },
+          ),
         ],
       ),
     );
