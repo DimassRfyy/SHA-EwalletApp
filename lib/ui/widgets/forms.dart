@@ -5,12 +5,14 @@ class CustomFormField extends StatefulWidget {
   final String label;
   final bool obscureText;
   final TextEditingController? controller;
+  final bool isShowLabel;
 
   const CustomFormField({
     super.key,
     required this.label,
     this.obscureText = false,
     this.controller,
+    this.isShowLabel = true,
   });
 
   @override
@@ -31,15 +33,17 @@ class _CustomFormFieldState extends State<CustomFormField> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          widget.label,
-          style: blackTextStyle.copyWith(fontSize: 14, fontWeight: medium),
-        ),
-        const SizedBox(height: 8),
+        if (widget.isShowLabel)
+          Text(
+            widget.label,
+            style: blackTextStyle.copyWith(fontSize: 14, fontWeight: medium),
+          ),
+        if (widget.isShowLabel) const SizedBox(height: 8),
         TextFormField(
           obscureText: _obscureText,
           controller: widget.controller,
           decoration: InputDecoration(
+            hintText: !widget.isShowLabel ? widget.label : null,
             border: OutlineInputBorder(borderRadius: BorderRadius.circular(14)),
             contentPadding: const EdgeInsets.all(12),
             suffixIcon:
