@@ -25,7 +25,12 @@ class TransferPage extends StatelessWidget {
           // buildRecentUsers(),
           buildResults(),
           const SizedBox(height: 200),
-          CustomFilledButton(title: 'Continue', onPressed: () {}),
+          CustomFilledButton(
+            title: 'Continue',
+            onPressed: () {
+              Navigator.pushNamed(context, '/transfer-amount');
+            },
+          ),
           const SizedBox(height: 50),
         ],
       ),
