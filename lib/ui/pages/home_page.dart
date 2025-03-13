@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_sha/shared/shared_methods.dart';
 import 'package:flutter_sha/shared/theme.dart';
 import 'package:flutter_sha/ui/widgets/home_latest_transaction_item.dart';
 import 'package:flutter_sha/ui/widgets/home_service_item.dart';
@@ -170,7 +171,7 @@ class HomePage extends StatelessWidget {
           const SizedBox(height: 21),
           Text('Balance', style: whiteTextStyle.copyWith(fontSize: 14)),
           Text(
-            '\$ 1,000,000',
+            formatCurrency(10000000),
             style: whiteTextStyle.copyWith(fontSize: 24, fontWeight: semiBold),
           ),
         ],
@@ -206,7 +207,7 @@ class HomePage extends StatelessWidget {
                 ),
               ),
               Text(
-                'of \$ 10M',
+                'of ${formatCurrency(5500000)}',
                 style: blackTextStyle.copyWith(
                   fontSize: 14,
                   fontWeight: semiBold,
@@ -302,31 +303,31 @@ class HomePage extends StatelessWidget {
                   imageUrl: 'assets/ic_trx_topup.png',
                   title: 'Top Up',
                   date: 'Yesterday',
-                  amount: '+\$ 100,000',
+                  amount: '- ${formatCurrency(200000, symbol: '')}',
                 ),
                 HomeLatestTransactionItem(
                   imageUrl: 'assets/ic_trx_cashback.png',
                   title: 'Cashback',
                   date: 'Sep 11',
-                  amount: '+\$ 75,000',
+                  amount: '+ ${formatCurrency(200000, symbol: '')}',
                 ),
                 HomeLatestTransactionItem(
                   imageUrl: 'assets/ic_trx_withdraw.png',
                   title: 'Withdraw',
                   date: 'Sep 10',
-                  amount: '+\$ 200,000',
+                  amount: '+ ${formatCurrency(200000, symbol: '')}',
                 ),
                 HomeLatestTransactionItem(
                   imageUrl: 'assets/ic_trx_transfer.png',
                   title: 'Transfer',
                   date: 'Sep 10',
-                  amount: '+\$ 50,000',
+                  amount: '- ${formatCurrency(200000, symbol: '')}',
                 ),
                 HomeLatestTransactionItem(
                   imageUrl: 'assets/ic_trx_electric.png',
                   title: 'Electricity',
                   date: 'Sep 9',
-                  amount: '+\$ 20,000',
+                  amount: '- ${formatCurrency(200000, symbol: '')}',
                 ),
               ],
             ),

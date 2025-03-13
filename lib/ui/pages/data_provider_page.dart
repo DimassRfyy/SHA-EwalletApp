@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_sha/shared/shared_methods.dart';
 import 'package:flutter_sha/shared/theme.dart';
 import 'package:flutter_sha/ui/widgets/bank_item.dart';
 import 'package:flutter_sha/ui/widgets/buttons.dart';
@@ -41,7 +42,7 @@ class DataProviderPage extends StatelessWidget {
                       ),
                       const SizedBox(height: 2),
                       Text(
-                        'Balance: Rp 180.000.000',
+                        'Balance: ${formatCurrency(200000)}',
                         style: grayTextStyle.copyWith(fontSize: 12),
                       ),
                     ],
@@ -74,9 +75,12 @@ class DataProviderPage extends StatelessWidget {
                 description: 'Available',
               ),
               const SizedBox(height: 20),
-              CustomFilledButton(title: 'Continue', onPressed: () {
-                Navigator.pushNamed(context, '/data-package');
-              }),
+              CustomFilledButton(
+                title: 'Continue',
+                onPressed: () {
+                  Navigator.pushNamed(context, '/data-package');
+                },
+              ),
               const SizedBox(height: 55),
             ],
           ),
