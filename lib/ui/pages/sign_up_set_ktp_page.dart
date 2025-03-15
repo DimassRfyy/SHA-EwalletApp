@@ -1,12 +1,30 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_sha/models/sign_up_form_model.dart';
+import 'package:flutter_sha/shared/shared_methods.dart';
 import 'package:flutter_sha/shared/theme.dart';
 import 'package:flutter_sha/ui/widgets/buttons.dart';
+import 'package:image_picker/image_picker.dart';
 
-class SignUpSetKtpPage extends StatelessWidget {
+class SignUpSetKtpPage extends StatefulWidget {
   final SignUpFormModel data;
 
   const SignUpSetKtpPage({super.key, required this.data});
+
+  @override
+  State<SignUpSetKtpPage> createState() => _SignUpSetKtpPageState();
+}
+
+class _SignUpSetKtpPageState extends State<SignUpSetKtpPage> {
+  XFile? selectedImage;
+
+  bool validate() {
+    if (selectedImage == null) {
+      return false;
+    }
+    return true;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,29 +55,38 @@ class SignUpSetKtpPage extends StatelessWidget {
             ),
             child: Column(
               children: [
-                Container(
-                  height: 120,
-                  width: 120,
-                  decoration: BoxDecoration(
-                    color: lightBackgroundColor,
-                    shape: BoxShape.circle,
-                  ),
-                  child: Center(
-                    child: Image.asset('assets/ic_upload.png', width: 32),
+                GestureDetector(
+                  onTap: () async {
+                    final image = await selectImage();
+                    setState(() {
+                      selectedImage = image;
+                    });
+                  },
+                  child: Container(
+                    height: 120,
+                    width: 120,
+                    decoration: BoxDecoration(
+                      color: lightBackgroundColor,
+                      shape: BoxShape.circle,
+                      image:
+                          selectedImage != null
+                              ? DecorationImage(
+                                image: FileImage(File(selectedImage!.path)),
+                                fit: BoxFit.cover,
+                              )
+                              : null,
+                    ),
+                    child:
+                        selectedImage != null
+                            ? null
+                            : Center(
+                              child: Image.asset(
+                                'assets/ic_upload.png',
+                                width: 32,
+                              ),
+                            ),
                   ),
                 ),
-                // Conditional Rendering
-                // Container(
-                //   height: 120,
-                //   width: 120,
-                //   decoration: BoxDecoration(
-                //     shape: BoxShape.circle,
-                //     image: DecorationImage(
-                //       fit: BoxFit.cover,
-                //       image: AssetImage('assets/img_profile.png'),
-                //     ),
-                //   ),
-                // ),
                 const SizedBox(height: 16),
                 Text(
                   'Passport / KTP',
@@ -69,7 +96,13 @@ class SignUpSetKtpPage extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 50),
-                CustomFilledButton(title: 'Continue', onPressed: () {}),
+                CustomFilledButton(title: 'Continue', onPressed: () {
+                  if (validate()) {
+                    
+                  } else {
+                    showCustomSnackBar(context, 'Please upload your KTP');
+                  }
+                }),
               ],
             ),
           ),

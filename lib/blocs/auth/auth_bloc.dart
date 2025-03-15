@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter_sha/models/sign_up_form_model.dart';
 import 'package:flutter_sha/services/auth_service.dart';
 
 part 'auth_event.dart';
