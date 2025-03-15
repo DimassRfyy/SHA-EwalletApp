@@ -6,6 +6,7 @@ class CustomFormField extends StatefulWidget {
   final bool obscureText;
   final TextEditingController? controller;
   final bool isShowLabel;
+  final TextInputType? keyboardType;
 
   const CustomFormField({
     super.key,
@@ -13,6 +14,7 @@ class CustomFormField extends StatefulWidget {
     this.obscureText = false,
     this.controller,
     this.isShowLabel = true,
+    this.keyboardType,
   });
 
   @override
@@ -41,6 +43,7 @@ class _CustomFormFieldState extends State<CustomFormField> {
         if (widget.isShowLabel) const SizedBox(height: 8),
         TextFormField(
           obscureText: _obscureText,
+          keyboardType: widget.keyboardType,
           controller: widget.controller,
           decoration: InputDecoration(
             hintText: !widget.isShowLabel ? widget.label : null,

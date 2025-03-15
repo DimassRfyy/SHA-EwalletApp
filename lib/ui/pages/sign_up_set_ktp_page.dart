@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_sha/models/sign_up_form_model.dart';
 import 'package:flutter_sha/shared/theme.dart';
 import 'package:flutter_sha/ui/widgets/buttons.dart';
 
 class SignUpSetKtpPage extends StatelessWidget {
-  const SignUpSetKtpPage({super.key});
+  final SignUpFormModel data;
+
+  const SignUpSetKtpPage({super.key, required this.data});
 
   @override
   Widget build(BuildContext context) {
