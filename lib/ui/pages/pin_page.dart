@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_sha/blocs/auth/auth_bloc.dart';
 import 'package:flutter_sha/shared/shared_methods.dart';
 import 'package:flutter_sha/shared/theme.dart';
 import 'package:flutter_sha/ui/widgets/buttons.dart';
@@ -12,6 +14,7 @@ class PinPage extends StatefulWidget {
 
 class _PinPageState extends State<PinPage> {
   final TextEditingController _pinController = TextEditingController();
+  String pin = '';
 
   void _onButtonPressed(String value) {
     if (_pinController.text.length < 6) {
@@ -21,12 +24,21 @@ class _PinPageState extends State<PinPage> {
     }
 
     if (_pinController.text.length == 6) {
-      if (_pinController.text == '111111') {
+      if (_pinController.text == pin) {
         Navigator.pop(context, true);
       } else {
         _pinController.clear();
         showCustomSnackBar(context, 'Wrong PIN, try again');
       }
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    final authState = context.read<AuthBloc>().state;
+    if (authState is AuthSuccess) {
+      pin = authState.user.pin!;
     }
   }
 

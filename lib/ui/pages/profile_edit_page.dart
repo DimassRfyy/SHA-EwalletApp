@@ -1,10 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_sha/blocs/auth/auth_bloc.dart';
 import 'package:flutter_sha/shared/theme.dart';
 import 'package:flutter_sha/ui/widgets/buttons.dart';
 import 'package:flutter_sha/ui/widgets/forms.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class ProfileEditPage extends StatelessWidget {
+class ProfileEditPage extends StatefulWidget {
   const ProfileEditPage({super.key});
+
+  @override
+  State<ProfileEditPage> createState() => _ProfileEditPageState();
+}
+
+class _ProfileEditPageState extends State<ProfileEditPage> {
+  final usernameController = TextEditingController(text: '');
+  final fullNameController = TextEditingController(text: '');
+  final emailController = TextEditingController(text: '');
+  final passwordController = TextEditingController(text: '');
+
+  @override
+  void initState() {
+    super.initState();
+    final authState = context.read<AuthBloc>().state;
+    if (authState is AuthSuccess) {
+      usernameController.text = authState.user.username!;
+      fullNameController.text = authState.user.name!;
+      emailController.text = authState.user.email!;
+      passwordController.text = authState.user.password!;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,13 +47,26 @@ class ProfileEditPage extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const CustomFormField(label: 'Username'),
+                CustomFormField(
+                  label: 'Username',
+                  controller: usernameController,
+                ),
                 const SizedBox(height: 16),
-                const CustomFormField(label: 'Full Name'),
+                CustomFormField(
+                  label: 'Full Name',
+                  controller: fullNameController,
+                ),
                 const SizedBox(height: 16),
-                const CustomFormField(label: 'Email Address'),
+                CustomFormField(
+                  label: 'Email Address',
+                  controller: emailController,
+                ),
                 const SizedBox(height: 16),
-                const CustomFormField(label: 'Password', obscureText: true),
+                CustomFormField(
+                  label: 'Password',
+                  obscureText: true,
+                  controller: passwordController,
+                ),
                 const SizedBox(height: 30),
                 CustomFilledButton(
                   title: 'Update Profile',
