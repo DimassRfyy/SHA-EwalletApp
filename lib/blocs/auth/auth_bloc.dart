@@ -49,6 +49,16 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         }
       }
 
+      if (event is AuthLogout) {
+        try {
+          emit(AuthLoading());
+          await AuthService().logout();
+          emit(AuthInitial());
+        } catch (e) {
+          emit(AuthFailed(e.toString()));
+        }
+      }
+
       if (event is AuthGetCurrentUser) {
         try {
           emit(AuthLoading());
