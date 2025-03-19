@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_sha/shared/theme.dart';
 
 class CustomFormField extends StatefulWidget {
@@ -7,6 +8,8 @@ class CustomFormField extends StatefulWidget {
   final TextEditingController? controller;
   final bool isShowLabel;
   final TextInputType? keyboardType;
+  final int? maxLength;
+  final bool readOnly;
 
   const CustomFormField({
     super.key,
@@ -15,6 +18,8 @@ class CustomFormField extends StatefulWidget {
     this.controller,
     this.isShowLabel = true,
     this.keyboardType,
+    this.maxLength,
+    this.readOnly = false,
   });
 
   @override
@@ -45,6 +50,11 @@ class _CustomFormFieldState extends State<CustomFormField> {
           obscureText: _obscureText,
           keyboardType: widget.keyboardType,
           controller: widget.controller,
+          readOnly: widget.readOnly,
+          inputFormatters: [
+            if (widget.maxLength != null)
+              LengthLimitingTextInputFormatter(widget.maxLength),
+          ],
           decoration: InputDecoration(
             hintText: !widget.isShowLabel ? widget.label : null,
             border: OutlineInputBorder(borderRadius: BorderRadius.circular(14)),
