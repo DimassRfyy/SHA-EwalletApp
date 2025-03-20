@@ -92,7 +92,7 @@ class _SignUpSetProfilePageState extends State<SignUpSetProfilePage> {
                 ),
                 const SizedBox(height: 16),
                 Text(
-                  'Akane Kurokawa',
+                  widget.data.name ?? 'Your Name',
                   style: blackTextStyle.copyWith(
                     fontSize: 18,
                     fontWeight: medium,
