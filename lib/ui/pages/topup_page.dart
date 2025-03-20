@@ -1,13 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_sha/blocs/auth/auth_bloc.dart';
+import 'package:flutter_sha/blocs/payment_method/payment_method_bloc.dart';
+import 'package:flutter_sha/models/payment_method_model.dart';
 import 'package:flutter_sha/shared/theme.dart';
 import 'package:flutter_sha/ui/widgets/bank_item.dart';
 import 'package:flutter_sha/ui/widgets/buttons.dart';
 
-class TopupPage extends StatelessWidget {
+class TopupPage extends StatefulWidget {
   const TopupPage({super.key});
 
+  @override
+  State<TopupPage> createState() => _TopupPageState();
+}
+
+class _TopupPageState extends State<TopupPage> {
+  PaymentMethodModel? selectedPaymentMethod;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -69,34 +77,47 @@ class TopupPage extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 14),
-                    BankItem(
-                      imageUrl: 'assets/img_bca.png',
-                      name: 'BANK BCA',
-                      description: '50 mins',
-                      isSelected: true,
-                    ),
-                    BankItem(
-                      imageUrl: 'assets/img_bni.png',
-                      name: 'BANK BNI',
-                      description: '50 mins',
-                    ),
-                    BankItem(
-                      imageUrl: 'assets/img_mandiri.png',
-                      name: 'BANK MANDIRI',
-                      description: '50 mins',
-                    ),
-                    BankItem(
-                      imageUrl: 'assets/img_ocbc.png',
-                      name: 'BANK OCBC',
-                      description: '50 mins',
+                    BlocProvider(
+                      create:
+                          (context) =>
+                              PaymentMethodBloc()..add(FetchPaymentMethod()),
+                      child: BlocBuilder<PaymentMethodBloc, PaymentMethodState>(
+                        builder: (context, state) {
+                          if (state is PaymentMethodSuccess) {
+                            return Column(
+                              children:
+                                  state.paymentMethods
+                                      .map(
+                                        (e) => GestureDetector(
+                                          onTap: () {
+                                            setState(() {
+                                              selectedPaymentMethod = e;
+                                            });
+                                          },
+                                          child: BankItem(
+                                            paymentMethod: e,
+                                            description: 'Transfer',
+                                            isSelected:
+                                                e.id ==
+                                                selectedPaymentMethod?.id,
+                                          ),
+                                        ),
+                                      )
+                                      .toList(),
+                            );
+                          }
+                          return Center(child: CircularProgressIndicator());
+                        },
+                      ),
                     ),
                     const SizedBox(height: 20),
-                    CustomFilledButton(
-                      title: 'Continue',
-                      onPressed: () {
-                        Navigator.pushNamed(context, '/topup-amount');
-                      },
-                    ),
+                    if (selectedPaymentMethod != null)
+                      CustomFilledButton(
+                        title: 'Continue',
+                        onPressed: () {
+                          Navigator.pushNamed(context, '/topup-amount');
+                        },
+                      ),
                     const SizedBox(height: 55),
                   ],
                 ),

@@ -58,22 +58,22 @@ class DataProviderPage extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 14),
-              BankItem(
-                imageUrl: 'assets/img_telkomsel.png',
-                name: 'Telkomsel',
-                description: 'Available',
-                isSelected: true,
-              ),
-              BankItem(
-                imageUrl: 'assets/img_indosat.png',
-                name: 'Indosat',
-                description: 'Available',
-              ),
-              BankItem(
-                imageUrl: 'assets/img_singtel.png',
-                name: 'Singtel',
-                description: 'Available',
-              ),
+              // BankItem(
+              //   imageUrl: 'assets/img_telkomsel.png',
+              //   name: 'Telkomsel',
+              //   description: 'Available',
+              //   isSelected: true,
+              // ),
+              // BankItem(
+              //   imageUrl: 'assets/img_indosat.png',
+              //   name: 'Indosat',
+              //   description: 'Available',
+              // ),
+              // BankItem(
+              //   imageUrl: 'assets/img_singtel.png',
+              //   name: 'Singtel',
+              //   description: 'Available',
+              // ),
               const SizedBox(height: 20),
               CustomFilledButton(
                 title: 'Continue',
