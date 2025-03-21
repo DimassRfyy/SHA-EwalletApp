@@ -16,7 +16,6 @@ import 'package:flutter_sha/ui/pages/sign_up_page.dart';
 import 'package:flutter_sha/ui/pages/sign_up_success_page.dart';
 import 'package:flutter_sha/ui/pages/splash_page.dart';
 import 'package:flutter_sha/ui/pages/onboarding_page.dart';
-import 'package:flutter_sha/ui/pages/topup_amount_page.dart';
 import 'package:flutter_sha/ui/pages/topup_page.dart';
 import 'package:flutter_sha/ui/pages/topup_success_page.dart';
 import 'package:flutter_sha/ui/pages/transfer_amount_page.dart';
@@ -31,7 +30,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-      providers: [BlocProvider(create: (context) => AuthBloc()..add(AuthGetCurrentUser()))],
+      providers: [
+        BlocProvider(
+          create: (context) => AuthBloc()..add(AuthGetCurrentUser()),
+        ),
+      ],
       child: MaterialApp(
         theme: ThemeData(
           scaffoldBackgroundColor: lightBackgroundColor,
@@ -59,7 +62,7 @@ class MyApp extends StatelessWidget {
           '/profile-edit-pin': (context) => const ProfileEditPinPage(),
           '/profile-edit-success': (context) => const ProfileEditSuccessPage(),
           '/topup': (context) => const TopupPage(),
-          '/topup-amount': (context) => const TopupAmountPage(),
+
           '/topup-success': (context) => const TopupSuccessPage(),
           '/transfer': (context) => const TransferPage(),
           '/transfer-amount': (context) => const TransferAmountPage(),
