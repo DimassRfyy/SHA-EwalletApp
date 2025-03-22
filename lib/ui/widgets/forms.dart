@@ -10,6 +10,7 @@ class CustomFormField extends StatefulWidget {
   final TextInputType? keyboardType;
   final int? maxLength;
   final bool readOnly;
+  final Function(String)? onFieldSubmitted;
 
   const CustomFormField({
     super.key,
@@ -20,6 +21,7 @@ class CustomFormField extends StatefulWidget {
     this.keyboardType,
     this.maxLength,
     this.readOnly = false,
+    this.onFieldSubmitted,
   });
 
   @override
@@ -73,6 +75,7 @@ class _CustomFormFieldState extends State<CustomFormField> {
                     )
                     : null,
           ),
+          onFieldSubmitted: widget.onFieldSubmitted,
         ),
       ],
     );
