@@ -1,18 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_sha/models/user_model.dart';
 import 'package:flutter_sha/shared/theme.dart';
 
 class TransferRecentUserItem extends StatelessWidget {
-  final String imageUrl;
-  final String name;
-  final String username;
-  final bool isVerified;
-  const TransferRecentUserItem({
-    super.key,
-    required this.imageUrl,
-    required this.name,
-    required this.username,
-    this.isVerified = false,
-  });
+  final UserModel user;
+  const TransferRecentUserItem({super.key, required this.user});
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +22,13 @@ class TransferRecentUserItem extends StatelessWidget {
             height: 45,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              image: DecorationImage(image: AssetImage(imageUrl)),
+              image: DecorationImage(
+                image:
+                    user.profilePicture != null
+                        ? NetworkImage(user.profilePicture!)
+                        : const AssetImage('assets/img_profile.png')
+                            as ImageProvider,
+              ),
             ),
           ),
           const SizedBox(width: 14),
@@ -38,18 +36,21 @@ class TransferRecentUserItem extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                name,
+                user.name.toString(),
                 style: blackTextStyle.copyWith(
                   fontSize: 16,
                   fontWeight: medium,
                 ),
               ),
               const SizedBox(height: 2),
-              Text('@$username', style: grayTextStyle.copyWith(fontSize: 12)),
+              Text(
+                '@${user.username!}',
+                style: grayTextStyle.copyWith(fontSize: 12),
+              ),
             ],
           ),
           const Spacer(),
-          if (isVerified)
+          if (user.verified == 1)
             Row(
               children: [
                 Icon(Icons.check_circle, color: greenColor, size: 14),
