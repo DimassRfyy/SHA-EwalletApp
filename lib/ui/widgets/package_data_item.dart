@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_sha/models/data_plan_model.dart';
 import 'package:flutter_sha/shared/shared_methods.dart';
 import 'package:flutter_sha/shared/theme.dart';
 
 class PackageDataItem extends StatelessWidget {
-  final int quota;
-  final int price;
+  final DataPlanModel dataPlan;
   final bool isSelected;
   const PackageDataItem({
     super.key,
-    required this.quota,
-    required this.price,
+    required this.dataPlan,
     this.isSelected = false,
   });
 
@@ -31,12 +30,12 @@ class PackageDataItem extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
-            '$quota GB',
+            dataPlan.name.toString(),
             style: blackTextStyle.copyWith(fontSize: 32, fontWeight: medium),
           ),
           const SizedBox(height: 6),
           Text(
-            formatCurrency(price),
+            formatCurrency(dataPlan.price ?? 0),
             style: grayTextStyle.copyWith(fontSize: 14),
           ),
         ],

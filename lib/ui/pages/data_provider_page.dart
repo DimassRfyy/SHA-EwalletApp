@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_sha/blocs/operator_card/operator_card_bloc.dart';
+import 'package:flutter_sha/models/operator_card_model.dart';
 import 'package:flutter_sha/shared/theme.dart';
+import 'package:flutter_sha/ui/pages/data_package_page.dart';
 import 'package:flutter_sha/ui/widgets/buttons.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_sha/blocs/auth/auth_bloc.dart';
@@ -13,6 +16,7 @@ class DataProviderPage extends StatefulWidget {
 }
 
 class _DataProviderPageState extends State<DataProviderPage> {
+  OperatorCardModel? selectedOperatorCard;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -74,15 +78,36 @@ class _DataProviderPageState extends State<DataProviderPage> {
                       ),
                     ),
                     const SizedBox(height: 14),
-                    DataProviderItem(isSelected: true),
-                    DataProviderItem(),
-                    DataProviderItem(),
-                    const SizedBox(height: 20),
-                    CustomFilledButton(
-                      title: 'Continue',
-                      onPressed: () {
-                        Navigator.pushNamed(context, '/data-package');
-                      },
+                    BlocProvider(
+                      create:
+                          (context) =>
+                              OperatorCardBloc()..add(FetchOperatorCards()),
+                      child: BlocBuilder<OperatorCardBloc, OperatorCardState>(
+                        builder: (context, state) {
+                          if (state is OperatorCardSuccess) {
+                            return Column(
+                              children:
+                                  state.operatorCards.map((operatorCard) {
+                                    return GestureDetector(
+                                      onTap:
+                                          () => setState(() {
+                                            selectedOperatorCard = operatorCard;
+                                          }),
+                                      child: DataProviderItem(
+                                        operatorCard: operatorCard,
+                                        isSelected:
+                                            selectedOperatorCard?.id ==
+                                            operatorCard.id,
+                                      ),
+                                    );
+                                  }).toList(),
+                            );
+                          }
+                          return const Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        },
+                      ),
                     ),
                     const SizedBox(height: 55),
                   ],
@@ -93,6 +118,26 @@ class _DataProviderPageState extends State<DataProviderPage> {
           return Container();
         },
       ),
+      floatingActionButton:
+          (selectedOperatorCard != null)
+              ? Container(
+                margin: const EdgeInsets.all(24),
+                child: CustomFilledButton(
+                  title: 'Continue',
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder:
+                            (context) =>
+                                DataPackagePage(data: selectedOperatorCard!),
+                      ),
+                    );
+                  },
+                ),
+              )
+              : Container(),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 }

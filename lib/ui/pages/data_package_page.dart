@@ -1,12 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_sha/models/data_plan_model.dart';
+import 'package:flutter_sha/models/operator_card_model.dart';
 import 'package:flutter_sha/shared/theme.dart';
 import 'package:flutter_sha/ui/widgets/buttons.dart';
 import 'package:flutter_sha/ui/widgets/forms.dart';
 import 'package:flutter_sha/ui/widgets/package_data_item.dart';
 
-class DataPackagePage extends StatelessWidget {
-  const DataPackagePage({super.key});
+class DataPackagePage extends StatefulWidget {
+  final OperatorCardModel data;
+  const DataPackagePage({super.key, required this.data});
 
+  @override
+  State<DataPackagePage> createState() => _DataPackagePageState();
+}
+
+class _DataPackagePageState extends State<DataPackagePage> {
+  final phoneController = TextEditingController(text: '');
+  DataPlanModel? selectedDataPlan;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,7 +30,11 @@ class DataPackagePage extends StatelessWidget {
             style: blackTextStyle.copyWith(fontSize: 16, fontWeight: semiBold),
           ),
           const SizedBox(height: 14),
-          CustomFormField(label: '+62', isShowLabel: false),
+          CustomFormField(
+            label: '+62',
+            isShowLabel: false,
+            controller: phoneController,
+          ),
           const SizedBox(height: 40),
           Text(
             'Select Package',
@@ -30,24 +44,34 @@ class DataPackagePage extends StatelessWidget {
           Wrap(
             spacing: 25,
             runSpacing: 17,
-            children: [
-              PackageDataItem(quota: 20, price: 20000, isSelected: true),
-              PackageDataItem(quota: 20, price: 20000),
-              PackageDataItem(quota: 20, price: 20000),
-            ],
+            children:
+                widget.data.dataPlans!
+                    .map(
+                      (dataPlan) => GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            selectedDataPlan = dataPlan;
+                          });
+                        },
+                        child: PackageDataItem(
+                          dataPlan: dataPlan,
+                          isSelected: selectedDataPlan?.id == dataPlan.id,
+                        ),
+                      ),
+                    )
+                    .toList(),
           ),
-          const SizedBox(height: 100),
-          CustomFilledButton(
-            title: 'Buy Package',
-            onPressed: () async {
-              final result = await Navigator.pushNamed(context, '/pin');
-              if (result == true && context.mounted) {
-                Navigator.pushNamed(context, '/data-success');
-              }
-            },
-          ),
+          const SizedBox(height: 30),
         ],
       ),
+      floatingActionButton:
+          (selectedDataPlan != null && phoneController.text.isNotEmpty)
+              ? Container(
+                margin: const EdgeInsets.all(24),
+                child: CustomFilledButton(title: 'Continue', onPressed: () {}),
+              )
+              : Container(),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 }
