@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter_sha/models/data_plan_form_model.dart';
 import 'package:flutter_sha/models/topup_form_model.dart';
 import 'package:flutter_sha/models/transfer_form_model.dart';
 import 'package:flutter_sha/services/auth_service.dart';
@@ -31,6 +32,23 @@ class TransactionService {
       final token = await AuthService().getToken();
       final res = await http.post(
         Uri.parse('$baseUrl/transfers'),
+        headers: {'Authorization': token},
+        body: data.toJson(),
+      );
+
+      if (res.statusCode != 200) {
+        throw jsonDecode(res.body)['message'];
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<void> buyDataPackage(DataPlanFormModel data) async {
+    try {
+      final token = await AuthService().getToken();
+      final res = await http.post(
+        Uri.parse('$baseUrl/data_plans'),
         headers: {'Authorization': token},
         body: data.toJson(),
       );
