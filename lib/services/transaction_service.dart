@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter_sha/models/data_plan_form_model.dart';
 import 'package:flutter_sha/models/topup_form_model.dart';
+import 'package:flutter_sha/models/transaction_model.dart';
 import 'package:flutter_sha/models/transfer_form_model.dart';
 import 'package:flutter_sha/services/auth_service.dart';
 import 'package:flutter_sha/shared/shared_values.dart';
@@ -54,6 +55,28 @@ class TransactionService {
       );
 
       if (res.statusCode != 200) {
+        throw jsonDecode(res.body)['message'];
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<List<TransactionModel>> getTransactions() async {
+    try {
+      final token = await AuthService().getToken();
+      final res = await http.get(
+        Uri.parse('$baseUrl/transactions'),
+        headers: {'Authorization': token},
+      );
+
+      if (res.statusCode == 200) {
+        final List<dynamic> data = jsonDecode(res.body)['data'];
+        final List<TransactionModel> transactions =
+            data.map((item) => TransactionModel.fromJson(item)).toList();
+
+        return transactions;
+      } else {
         throw jsonDecode(res.body)['message'];
       }
     } catch (e) {

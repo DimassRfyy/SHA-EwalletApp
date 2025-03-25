@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_sha/blocs/auth/auth_bloc.dart';
-import 'package:flutter_sha/blocs/bloc/data_plan_bloc.dart';
+import 'package:flutter_sha/blocs/data_plan/data_plan_bloc.dart';
 import 'package:flutter_sha/models/data_plan_form_model.dart';
 import 'package:flutter_sha/models/data_plan_model.dart';
 import 'package:flutter_sha/models/operator_card_model.dart';
