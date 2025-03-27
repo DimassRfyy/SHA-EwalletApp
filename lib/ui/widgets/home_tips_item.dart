@@ -1,23 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_sha/models/tips_model.dart';
 import 'package:flutter_sha/shared/theme.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class HomeTipsItem extends StatelessWidget {
-  final String title;
-  final String imageUrl;
-  final String url;
-  const HomeTipsItem({
-    super.key,
-    required this.title,
-    required this.imageUrl,
-    required this.url,
-  });
+  final TipsModel tips;
+  const HomeTipsItem({super.key, required this.tips});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () async {
-        final urlUri = Uri.parse(url);
+        final urlUri = Uri.parse(tips.url.toString());
         if (await canLaunchUrl(urlUri)) {
           await launchUrl(urlUri);
         } else {
@@ -41,18 +35,26 @@ class HomeTipsItem extends StatelessWidget {
               borderRadius: const BorderRadius.vertical(
                 top: Radius.circular(20),
               ),
-              child: Image.asset(
-                imageUrl,
-                width: double.infinity,
-                height: 110,
-                fit: BoxFit.cover,
-              ),
+              child:
+                  tips.thumbnail != null
+                      ? Image.network(
+                        tips.thumbnail.toString(),
+                        width: double.infinity,
+                        height: 110,
+                        fit: BoxFit.cover,
+                      )
+                      : Image.asset(
+                        'assets/img_tips1.png',
+                        width: double.infinity,
+                        height: 110,
+                        fit: BoxFit.cover,
+                      ),
             ),
             const SizedBox(height: 12),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 12),
               child: Text(
-                title,
+                tips.title.toString(),
                 style: blackTextStyle.copyWith(
                   fontSize: 14,
                   fontWeight: medium,

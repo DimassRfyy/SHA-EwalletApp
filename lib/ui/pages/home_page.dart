@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_sha/blocs/auth/auth_bloc.dart';
+import 'package:flutter_sha/blocs/tips/tips_bloc.dart';
 import 'package:flutter_sha/blocs/transaction/transaction_bloc.dart';
 import 'package:flutter_sha/blocs/user/user_bloc.dart';
 import 'package:flutter_sha/models/transfer_form_model.dart';
@@ -417,47 +418,36 @@ class HomePage extends StatelessWidget {
             'Friendly Tips',
             style: blackTextStyle.copyWith(fontSize: 16, fontWeight: semiBold),
           ),
-          const SizedBox(height: 14),
-          GridView.builder(
-            shrinkWrap: true,
-            physics: NeverScrollableScrollPhysics(),
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              crossAxisSpacing: 17,
-              mainAxisSpacing: 18,
-              childAspectRatio: 0.9,
+          const SizedBox(height: 10),
+          BlocProvider(
+            create: (context) => TipsBloc()..add(GetTips()),
+            child: BlocBuilder<TipsBloc, TipsState>(
+              builder: (context, state) {
+                if (state is TipsSuccess) {
+                  return GridView.builder(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          crossAxisSpacing: 17,
+                          mainAxisSpacing: 18,
+                          childAspectRatio: 0.9,
+                        ),
+                    itemCount: state.tips.length,
+                    itemBuilder: (context, index) {
+                      final tip =
+                          state.tips[index];
+                      return HomeTipsItem(tips: tip);
+                    },
+                  );
+                } else if (state is TipsLoading) {
+                  return const Center(child: CircularProgressIndicator());
+                } else {
+                  return const Center(child: Text('No tips available.'));
+                }
+              },
             ),
-            itemCount: 4,
-            itemBuilder: (context, index) {
-              final tips = [
-                {
-                  'title': 'Best tips for using credit card',
-                  'imageUrl': 'assets/img_tips1.png',
-                  'url': 'https://www.google.com',
-                },
-                {
-                  'title': 'Spot the good pie of finance model',
-                  'imageUrl': 'assets/img_tips2.png',
-                  'url': 'https://pub.dev',
-                },
-                {
-                  'title': 'How to make a good financial',
-                  'imageUrl': 'assets/img_tips3.png',
-                  'url': 'https://dadada',
-                },
-                {
-                  'title': 'Save more penny by doing this',
-                  'imageUrl': 'assets/img_tips4.png',
-                  'url': 'https://www.google.com',
-                },
-              ];
-
-              return HomeTipsItem(
-                title: tips[index]['title']!,
-                imageUrl: tips[index]['imageUrl']!,
-                url: tips[index]['url']!,
-              );
-            },
           ),
         ],
       ),
